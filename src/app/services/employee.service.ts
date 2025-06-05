@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Deparment } from './department.service';
+import { Department } from './department.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Employee {
   id: number;
   name: string;
-  departments: Deparment[];
+  departments: Department[];
 }
 
 @Injectable({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Deparment } from 'src/app/services/department.service';
+import { Department } from 'src/app/services/department.service';
 import { Employee, EmployeeService } from 'src/app/services/employee.service';
 import { DepartmentService } from 'src/app/services/department.service';
 @Component({
@@ -10,13 +10,13 @@ import { DepartmentService } from 'src/app/services/department.service';
 })
 export class EmployeesComponent {
   
-  departments: Deparment[] = [];
+  departments: Department[] = [];
 
-  selectedDepartmentsForUpdate: Deparment[] = [];
-  selectedDepartments: Deparment[] = [];
+  selectedDepartmentsForUpdate: Department[] = [];
+  selectedDepartments: Department[] = [];
 
   employees: Employee[] = [];
-  newEmployee = { name: '',  departments: [] as Deparment[] };
+  newEmployee = { name: '',  departments: [] as Department[] };
   selectedEmployee: Employee = { id: 0, name: '', departments: [] };
 
   constructor(private modalService: NgbModal, private employeeService: EmployeeService, private departmentService: DepartmentService) {}
@@ -31,7 +31,7 @@ export class EmployeesComponent {
     });
   }
   loadDepartments(): void {
-    this.departmentService.getDepartments().subscribe((data: Deparment[]) => {
+    this.departmentService.getDepartments().subscribe((data: Department[]) => {
       this.departments = data;
       this.selectedDepartments = this.departments.filter(d => d.mandatory);
     });

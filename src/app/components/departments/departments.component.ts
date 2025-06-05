@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Deparment, DepartmentService} from 'src/app/services/department.service';
+import { Department, DepartmentService} from 'src/app/services/department.service';
 
 @Component({
   selector: 'app-departments',
@@ -8,9 +8,9 @@ import { Deparment, DepartmentService} from 'src/app/services/department.service
   styleUrls: ['./departments.component.scss'],
 })
 export class DepartmentsComponent {
-  departments: Deparment[] =[];
+  departments: Department[] =[];
 
-  selectedDepartment: Deparment = { id: 0, name: '', readOnly: false, mandatory: false };
+  selectedDepartment: Department = { id: 0, name: '', readOnly: false, mandatory: false };
 
   newDepartment = { name: '', readOnly: false, mandatory: false };
 
@@ -21,7 +21,7 @@ export class DepartmentsComponent {
   }
 
   loadDepartments(): void {
-    this.departmentService.getDepartments().subscribe((data: Deparment[]) => {
+    this.departmentService.getDepartments().subscribe((data: Department[]) => {
       this.departments = data;
     });
   }
@@ -32,7 +32,7 @@ export class DepartmentsComponent {
   }
 
   saveCreateModal(modal: any) {
-    this.departmentService.addDepartment(this.newDepartment).subscribe((newDept: Deparment) => {
+    this.departmentService.addDepartment(this.newDepartment).subscribe((newDept: Department) => {
       this.departments.push(newDept);
       modal.close();
     });
