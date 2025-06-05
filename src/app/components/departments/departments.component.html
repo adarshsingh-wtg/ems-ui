@@ -1,0 +1,87 @@
+<div class="container mt-3">
+  <button class="btn btn-primary mb-2" (click)="openCreateModal(createDepartmentModal)">Create</button>
+
+
+
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Read Only</th>
+        <th>Mandatory</th>
+        <th style="width: 100px;">
+          <i class="bi bi-activity"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dept of departments">
+        <td>{{ dept.id }}</td>
+        <td>{{ dept.name }}</td>
+        <td>{{ dept.readOnly ? '✓' : '✗' }}</td>
+        <td>{{ dept.mandatory ? '✓' : '✗' }}</td>
+        <td>
+          <button class="btn btn-secondary btn-sm mr-1" (click)="openEditModal(editDepartmentModal, dept)" title="Edit" [disabled]="dept.readOnly">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteDepartment(dept.id)" title="Delete" [disabled]="dept.readOnly">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <ng-template #editDepartmentModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Edit Department</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>ID:</strong> {{ selectedDepartment.id }}</p>
+
+            <div class="mb-3">
+            <label for="deptName" class="form-label">Name</label>
+            <input type="text" id="deptName" class="form-control" [(ngModel)]="selectedDepartment.name" />
+            </div>
+
+            <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="readOnly" [(ngModel)]="selectedDepartment.readOnly" />
+            <label class="form-check-label" for="readOnly">Read Only</label>
+            </div>
+
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="mandatory" [(ngModel)]="selectedDepartment.mandatory" />
+            <label class="form-check-label" for="mandatory">Mandatory</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="saveDepartment(modal)">Save</button>
+            <button class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+        </div>
+    </ng-template>
+    <ng-template #createDepartmentModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Create Department</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="newDepartment.name" />
+        </div>
+        <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" id="readOnly" [(ngModel)]="newDepartment.readOnly" />
+        <label class="form-check-label" for="readOnly">Read Only</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="mandatory" [(ngModel)]="selectedDepartment.mandatory" />
+        <label class="form-check-label" for="mandatory">Mandatory</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="saveCreateModal(modal)">Save</button>
+        <button class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+    </div>
+    </ng-template>
+</div>

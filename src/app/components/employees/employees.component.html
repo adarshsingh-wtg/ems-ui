@@ -1,0 +1,91 @@
+<div class="container mt-3">
+
+  <button class="btn btn-primary mb-2" (click)="openCreateModal(createEmployee)">Create</button>
+
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th style="width: 100px;">
+          <i class="bi bi-activity"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>
+          <button class="btn btn-secondary btn-sm mr-1" (click)="openEditModal(editEmployeeModal, employee)" title="Edit">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteEmployee(employee.id)" title="Delete">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    <ng-template #createEmployee let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Create Employee</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+            <label for="firstName" class="form-label">Name</label>
+            <input type="text" id="firstName" class="form-control" [(ngModel)]="newEmployee.name" />
+            </div>
+            <div class="mb-3">
+              <label for="techSelect">Select Departments:</label>
+                <ng-select
+                  [items]="departments"
+                  bindLabel="name"
+                  [(ngModel)]="selectedDepartments"
+                  [multiple]="true"
+                  placeholder="Select Departments">
+                  <ng-template ng-option-tmp let-item="item" let-disabled="disabled">
+                    {{ item.name }} <span *ngIf="item.mandatory">(Mandatory)</span>
+                  </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="addEmployee(modal)">Save</button>
+            <button class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+        </div>
+    </ng-template>
+    <ng-template #editEmployeeModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Edit Employee</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>ID:</strong> {{ selectedEmployee.id }}</p>
+
+            <div class="mb-3">
+            <label for="deptName" class="form-label">Name</label>
+            <input type="text" id="deptName" class="form-control" [(ngModel)]="selectedEmployee.name" />
+            </div>
+            <div class="mb-3">
+              <label for="techSelect">Select Departments:</label>
+                <ng-select
+                  [items]="departments"
+                  bindLabel="name"
+                  [(ngModel)]="selectedDepartmentsForUpdate"
+                  [multiple]="true"
+                  placeholder="Select Departments">
+                  <ng-template ng-option-tmp let-item="item" let-disabled="disabled">
+                    {{ item.name }} <span *ngIf="item.mandatory">(Mandatory)</span>
+                  </ng-template>
+                </ng-select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="updateEmployee(modal)">Save</button>
+            <button class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+        </div>
+    </ng-template>
+</div>
+
